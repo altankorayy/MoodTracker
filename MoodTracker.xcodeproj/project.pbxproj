@@ -14,6 +14,13 @@
 		E18206F72A94C49600723685 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E18206F52A94C49600723685 /* LaunchScreen.storyboard */; };
 		E18207012A94C62200723685 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18207002A94C62200723685 /* LoginViewController.swift */; };
 		E18207032A94C62B00723685 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18207022A94C62B00723685 /* RegisterViewController.swift */; };
+		E18207062A94F74A00723685 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18207052A94F74A00723685 /* TabBarController.swift */; };
+		E18207082A94F78B00723685 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18207072A94F78B00723685 /* HomeViewController.swift */; };
+		E182070A2A94F7C700723685 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18207092A94F7C700723685 /* ListViewController.swift */; };
+		E182070C2A95017000723685 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182070B2A95017000723685 /* CollectionViewCell.swift */; };
+		E182070E2A9502C800723685 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E182070D2A9502C800723685 /* HeaderCollectionReusableView.swift */; };
+		E18F68332A96236E009DEF08 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68322A96236E009DEF08 /* DiaryViewController.swift */; };
+		E18F68362A9627A3009DEF08 /* MoodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68352A9627A3009DEF08 /* MoodModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		E18206F82A94C49600723685 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E18207002A94C62200723685 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E18207022A94C62B00723685 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E18207052A94F74A00723685 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E18207072A94F78B00723685 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E18207092A94F7C700723685 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		E182070B2A95017000723685 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		E182070D2A9502C800723685 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		E18F68322A96236E009DEF08 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		E18F68352A9627A3009DEF08 /* MoodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +74,8 @@
 			children = (
 				E18206FF2A94C60800723685 /* Delegates */,
 				E18206FE2A94C5FE00723685 /* ViewControllers */,
+				E18207042A94F70F00723685 /* Controllers */,
+				E18F68342A962797009DEF08 /* Model */,
 				E18206F32A94C49600723685 /* Assets.xcassets */,
 				E18206F52A94C49600723685 /* LaunchScreen.storyboard */,
 				E18206F82A94C49600723685 /* Info.plist */,
@@ -73,6 +89,9 @@
 				E18206EE2A94C49400723685 /* WelcomeViewController.swift */,
 				E18207022A94C62B00723685 /* RegisterViewController.swift */,
 				E18207002A94C62200723685 /* LoginViewController.swift */,
+				E18207072A94F78B00723685 /* HomeViewController.swift */,
+				E18207092A94F7C700723685 /* ListViewController.swift */,
+				E18F68322A96236E009DEF08 /* DiaryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -84,6 +103,24 @@
 				E18206EC2A94C49400723685 /* SceneDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		E18207042A94F70F00723685 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E18207052A94F74A00723685 /* TabBarController.swift */,
+				E182070B2A95017000723685 /* CollectionViewCell.swift */,
+				E182070D2A9502C800723685 /* HeaderCollectionReusableView.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E18F68342A962797009DEF08 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E18F68352A9627A3009DEF08 /* MoodModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,8 +195,15 @@
 			files = (
 				E18207012A94C62200723685 /* LoginViewController.swift in Sources */,
 				E18207032A94C62B00723685 /* RegisterViewController.swift in Sources */,
+				E182070C2A95017000723685 /* CollectionViewCell.swift in Sources */,
+				E18F68332A96236E009DEF08 /* DiaryViewController.swift in Sources */,
 				E18206EF2A94C49400723685 /* WelcomeViewController.swift in Sources */,
+				E18207062A94F74A00723685 /* TabBarController.swift in Sources */,
+				E18F68362A9627A3009DEF08 /* MoodModel.swift in Sources */,
 				E18206EB2A94C49400723685 /* AppDelegate.swift in Sources */,
+				E18207082A94F78B00723685 /* HomeViewController.swift in Sources */,
+				E182070A2A94F7C700723685 /* ListViewController.swift in Sources */,
+				E182070E2A9502C800723685 /* HeaderCollectionReusableView.swift in Sources */,
 				E18206ED2A94C49400723685 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

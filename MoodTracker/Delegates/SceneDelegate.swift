@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let welcomeNav = UINavigationController(rootViewController: WelcomeViewController())
-        window?.rootViewController = welcomeNav
+        let tabBar = UINavigationController(rootViewController: TabBarController())
+        window?.rootViewController = tabBar
         window?.makeKeyAndVisible()
     }
 
