@@ -10,11 +10,10 @@ import UIKit
 class HeaderCollectionReusableView: UICollectionReusableView {
     
     static let identifier = "HeaderCollectionReusableView"
-    
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hi, Altan"
         label.font = .systemFont(ofSize: 26, weight: .bold)
         label.textColor = .black
         return label

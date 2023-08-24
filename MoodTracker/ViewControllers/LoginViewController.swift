@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.boldSystemFont(ofSize: 16)
         ]
+        textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "✉️ Email Adress", attributes: attributes)
         return textField
     }()
@@ -29,6 +30,8 @@ class LoginViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.boldSystemFont(ofSize: 16)
         ]
+        textField.textColor = .white
+        textField.isSecureTextEntry = true
         textField.attributedPlaceholder = NSAttributedString(string: "🔐 Password", attributes: attributes)
         return textField
     }()
@@ -45,6 +48,8 @@ class LoginViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    
+    var viewModel = LoginViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +63,45 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
         
+        emailTextField.addTarget(self, action: #selector(didTapEmail), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(didTapPassword), for: .editingChanged)
+        loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        
         setConstraints()
+    }
+    
+    @objc private func didTapEmail() {
+        viewModel.email = emailTextField.text
+    }
+    
+    @objc private func didTapPassword() {
+        viewModel.password = passwordTextField.text
+    }
+    
+    @objc private func didTapLoginButton() {
+        guard emailTextField.text != nil, passwordTextField.text != nil else {
+            makeAlert(title: "Error", message: "Please fill email or password.")
+            return
+        }
+        
+        viewModel.loginUser()
+        viewModel.errorDelegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveLoginNotification), name: NSNotification.Name("userLoginCompleted"), object: nil)
+    }
+    
+    @objc private func didReceiveLoginNotification() {
+        let tabBar = TabBarController()
+        tabBar.modalPresentationStyle = .fullScreen
+        tabBar.selectedIndex = 0
+        present(tabBar, animated: true)
+    }
+    
+    private func makeAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okButton)
+        present(alert, animated: true)
     }
     
     private func setConstraints() {
@@ -88,4 +131,10 @@ class LoginViewController: UIViewController {
         NSLayoutConstraint.activate(loginButtonConstraints)
     }
 
+}
+
+extension LoginViewController: AuthLoginErrorDelegate {
+    func loginError(error: String) {
+        makeAlert(title: "Error", message: error)
+    }
 }

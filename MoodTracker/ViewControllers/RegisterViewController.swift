@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.boldSystemFont(ofSize: 16)
         ]
+        textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "🙂 Name and Surname", attributes: attributes)
         return textField
     }()
@@ -29,6 +30,7 @@ class RegisterViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.boldSystemFont(ofSize: 16)
         ]
+        textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "✉️ Email Adress", attributes: attributes)
         return textField
     }()
@@ -41,6 +43,8 @@ class RegisterViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.boldSystemFont(ofSize: 16)
         ]
+        textField.isSecureTextEntry = true
+        textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "🔐 Password", attributes: attributes)
         return textField
     }()
@@ -57,6 +61,8 @@ class RegisterViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    
+    var viewModel = RegisterViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +76,50 @@ class RegisterViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(completeButton)
         
+        usernameTextField.addTarget(self, action: #selector(didTapUsername), for: .editingChanged)
+        emailTextField.addTarget(self, action: #selector(didTapEmail), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(didTapPassword), for: .editingChanged)
+        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
+        
         setConstraints()
+    }
+    
+    @objc private func didTapUsername() {
+        viewModel.username = usernameTextField.text
+    }
+    
+    @objc private func didTapEmail() {
+        viewModel.email = emailTextField.text
+    }
+    
+    @objc private func didTapPassword() {
+        viewModel.password = passwordTextField.text
+    }
+    
+    @objc private func didTapCompleteButton() {
+        guard usernameTextField.text != nil, emailTextField.text != nil, passwordTextField.text != nil else {
+            makeAlert(title: "Error", message: "Please fill username/email or password.")
+            return
+        }
+        viewModel.registerUser()
+        viewModel.registerErrorDelegate = self
+        viewModel.uploadUserErrorDelegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification), name: NSNotification.Name("userLoginCompleted"), object: nil)
+    }
+    
+    @objc private func didReceiveNotification() {
+        let tabBar = TabBarController()
+        tabBar.modalPresentationStyle = .fullScreen
+        tabBar.selectedIndex = 0
+        present(tabBar, animated: true)
+    }
+    
+    private func makeAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okButton)
+        present(alert, animated: true)
     }
     
     private func setConstraints() {
@@ -107,5 +156,15 @@ class RegisterViewController: UIViewController {
         NSLayoutConstraint.activate(emailTextFieldConstraints)
         NSLayoutConstraint.activate(passwordTextFieldConstraints)
         NSLayoutConstraint.activate(completeButtonConstraints)
+    }
+}
+
+extension RegisterViewController: AuthErrorDelegate, DatabaseErrorDelegate {
+    func registerError(error: String) {
+        self.makeAlert(title: "Error", message: error)
+    }
+    
+    func uploadUserError(error: String) {
+        self.makeAlert(title: "Error", message: error)
     }
 }
