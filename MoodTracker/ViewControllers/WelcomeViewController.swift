@@ -73,6 +73,12 @@ class WelcomeViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
     @objc private func didTapSignUp() {
         let registerVC = RegisterViewController()
         registerVC.modalPresentationStyle = .fullScreen

@@ -111,8 +111,8 @@
 				E18207022A94C62B00723685 /* RegisterViewController.swift */,
 				E18207002A94C62200723685 /* LoginViewController.swift */,
 				E18207072A94F78B00723685 /* HomeViewController.swift */,
-				E18207092A94F7C700723685 /* ListViewController.swift */,
 				E18F68322A96236E009DEF08 /* DiaryViewController.swift */,
+				E18207092A94F7C700723685 /* ListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
