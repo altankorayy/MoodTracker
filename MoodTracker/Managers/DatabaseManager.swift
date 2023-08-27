@@ -23,4 +23,15 @@ class DatabaseManager {
             completion(true)
         }
     }
+    
+    func uploadDiaryText(mood: String, text: String, completion: @escaping(Bool) -> Void) {
+        let diaryData: [String: Any] = ["mood": mood, "text": text]
+        database.collection("diary").addDocument(data: diaryData) { error in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
+    }
 }

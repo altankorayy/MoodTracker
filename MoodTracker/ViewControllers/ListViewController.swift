@@ -20,6 +20,7 @@ class ListViewController: UIViewController {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.alwaysBounceVertical = true
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
@@ -34,6 +35,8 @@ class ListViewController: UIViewController {
         setConstraints()
         
         signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
+        
+        navigationController?.navigationBar.isHidden = true
     }
     
     @objc private func didTapSignOut() {
@@ -66,16 +69,20 @@ class ListViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    override func viewDidLayoutSubviews() {
-        scrollView.frame = view.bounds
-    }
-    
     private func setConstraints() {
+        let scrollViewConstraints = [
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+        
         let signOutButtonConstraints = [
             signOutButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             signOutButton.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ]
         
+        NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(signOutButtonConstraints)
     }
 

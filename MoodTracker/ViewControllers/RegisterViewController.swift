@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
     
@@ -63,6 +64,7 @@ class RegisterViewController: UIViewController {
     }()
     
     var viewModel = RegisterViewModel()
+    private let spinner = JGProgressHUD(style: .light)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,14 +103,16 @@ class RegisterViewController: UIViewController {
             makeAlert(title: "Error", message: "Please fill username/email or password.")
             return
         }
+        spinner.show(in: view, animated: true)
         viewModel.registerUser()
         viewModel.registerErrorDelegate = self
         viewModel.uploadUserErrorDelegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification), name: NSNotification.Name("userLoginCompleted"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification), name: NSNotification.Name("userCompleted"), object: nil)
     }
     
     @objc private func didReceiveNotification() {
+        spinner.dismiss()
         let tabBar = TabBarController()
         tabBar.modalPresentationStyle = .fullScreen
         tabBar.selectedIndex = 0
@@ -161,10 +165,12 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController: AuthErrorDelegate, DatabaseErrorDelegate {
     func registerError(error: String) {
-        self.makeAlert(title: "Error", message: error)
+        spinner.dismiss()
+        makeAlert(title: "Error", message: error)
     }
     
     func uploadUserError(error: String) {
-        self.makeAlert(title: "Error", message: error)
+        spinner.dismiss()
+        makeAlert(title: "Error", message: error)
     }
 }

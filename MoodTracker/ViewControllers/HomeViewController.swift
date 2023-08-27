@@ -66,13 +66,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedImageModel = moodModel[indexPath.row]
         let selectedName = selectedImageModel.name
-        print(selectedName)
+        let diaryVC = DiaryViewController()
+        diaryVC.moodString = selectedName
+        diaryVC.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(diaryVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as? HeaderCollectionReusableView else {
                 return UICollectionReusableView()
+            }
+            if let usernameString = UserDefaults.standard.string(forKey: "username") {
+                header.configureUsername(username: usernameString)
             }
             return header
         }

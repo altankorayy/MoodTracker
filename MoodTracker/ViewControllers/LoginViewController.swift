@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -50,6 +51,7 @@ class LoginViewController: UIViewController {
     }()
     
     var viewModel = LoginViewModel()
+    private let spinner = JGProgressHUD(style: .light)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +85,7 @@ class LoginViewController: UIViewController {
             makeAlert(title: "Error", message: "Please fill email or password.")
             return
         }
-        
+        spinner.show(in: view, animated: true)
         viewModel.loginUser()
         viewModel.errorDelegate = self
         
@@ -91,6 +93,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didReceiveLoginNotification() {
+        spinner.dismiss()
         let tabBar = TabBarController()
         tabBar.modalPresentationStyle = .fullScreen
         tabBar.selectedIndex = 0
@@ -135,6 +138,7 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: AuthLoginErrorDelegate {
     func loginError(error: String) {
+        spinner.dismiss()
         makeAlert(title: "Error", message: error)
     }
 }

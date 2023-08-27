@@ -14,7 +14,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 26, weight: .bold)
+        label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
         return label
     }()
@@ -23,7 +23,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "How are you feeling today?"
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         return label
     }()
@@ -36,9 +36,13 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         setConstraints()
     }
     
+    func configureUsername(username: String) {
+        nameLabel.text = "Hi, \(username)"
+    }
+    
     private func setConstraints() {
         let nameLabelConstrains = [
-            nameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            nameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ]
         
