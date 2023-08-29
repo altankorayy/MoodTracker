@@ -20,6 +20,8 @@ class HomeViewController: UIViewController {
         MoodModel(name: "Angry", image: UIImage(named: "angry")!),
         MoodModel(name: "Stressed", image: UIImage(named: "stressed")!)
     ]
+    
+    private let viewModel = HomeViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,6 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView!)
         
         navigationController?.navigationBar.isHidden = true
-
     }
     
     override func viewDidLayoutSubviews() {

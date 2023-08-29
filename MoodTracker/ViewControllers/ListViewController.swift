@@ -7,8 +7,23 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
+
+struct MoodListModel {
+    var mood: String
+    var diaryText: String
+}
 
 class ListViewController: UIViewController {
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Latest"
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
     
     private let signOutButton: UIButton = {
         let button = UIButton()
@@ -18,25 +33,55 @@ class ListViewController: UIViewController {
         return button
     }()
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.showsVerticalScrollIndicator = false
-        return scrollView
+    private let listTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
+        return tableView
     }()
+    
+    var moodListModel = [MoodListModel]()
+    private var spinner = JGProgressHUD(style: .light)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(signOutButton)
+        view.addSubview(listTableView)
         setConstraints()
         
         signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
+        listTableView.delegate = self
+        listTableView.dataSource = self
+        
         navigationController?.navigationBar.isHidden = true
+        
+        spinner.show(in: view)
+        fetchDiaryList()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        listTableView.frame = view.bounds
+    }
+    
+    private func fetchDiaryList() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        DatabaseManager.shared.fetchUserDiary(id: userId) { [weak self] result in
+            switch result {
+            case .success(let moodListModel):
+                self?.moodListModel = moodListModel
+                
+                DispatchQueue.main.async {
+                    self?.listTableView.reloadData()
+                }
+                self?.spinner.dismiss()
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
     }
     
     @objc private func didTapSignOut() {
@@ -44,7 +89,7 @@ class ListViewController: UIViewController {
         let signOutButton = UIAlertAction(title: "Sign Out", style: .default) { [weak self] _ in
             do {
                 try Auth.auth().signOut()
-                
+
                 DispatchQueue.main.async {
                     let welcomeVC = WelcomeViewController()
                     welcomeVC.modalPresentationStyle = .fullScreen
@@ -70,20 +115,28 @@ class ListViewController: UIViewController {
     }
     
     private func setConstraints() {
-        let scrollViewConstraints = [
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ]
         
-        let signOutButtonConstraints = [
-            signOutButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            signOutButton.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
-        ]
-        
-        NSLayoutConstraint.activate(scrollViewConstraints)
-        NSLayoutConstraint.activate(signOutButtonConstraints)
     }
 
+}
+
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return moodListModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier) as! ListTableViewCell
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }

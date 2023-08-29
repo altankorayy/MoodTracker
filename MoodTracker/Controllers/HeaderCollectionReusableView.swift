@@ -42,7 +42,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     
     private func setConstraints() {
         let nameLabelConstrains = [
-            nameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            nameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ]
         
