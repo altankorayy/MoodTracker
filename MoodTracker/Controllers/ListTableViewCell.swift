@@ -14,7 +14,6 @@ class ListTableViewCell: UITableViewCell {
     private let cellLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Diary"
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .black
         return label
@@ -51,6 +50,10 @@ class ListTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(title: String) {
+        cellLabel.text = title
     }
     
     private func setConstraints() {

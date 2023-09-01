@@ -12,6 +12,7 @@ import JGProgressHUD
 struct MoodListModel {
     var mood: String
     var diaryText: String
+    var title: String
 }
 
 class ListViewController: UIViewController {
@@ -19,7 +20,7 @@ class ListViewController: UIViewController {
     private let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Latest"
+        label.text = "Recent"
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textColor = .black
         return label
@@ -35,8 +36,19 @@ class ListViewController: UIViewController {
     
     private let listTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
         return tableView
+    }()
+    
+    private let noDataLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "There is no diary here."
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .gray
+        label.isHidden = true
+        return label
     }()
     
     var moodListModel = [MoodListModel]()
@@ -46,7 +58,10 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        view.addSubview(label)
         view.addSubview(listTableView)
+        view.addSubview(noDataLabel)
+        
         setConstraints()
         
         signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
@@ -58,12 +73,8 @@ class ListViewController: UIViewController {
         
         spinner.show(in: view)
         fetchDiaryList()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         
-        listTableView.frame = view.bounds
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTableView), name: NSNotification.Name("diaryUploaded"), object: nil)
     }
     
     private func fetchDiaryList() {
@@ -81,6 +92,12 @@ class ListViewController: UIViewController {
             case .failure(let error):
                 print("Error: \(error)")
             }
+        }
+    }
+    
+    @objc private func refreshTableView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.listTableView.reloadData()
         }
     }
     
@@ -107,17 +124,35 @@ class ListViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    private func setConstraints() {
+        let labelConstraints = [
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
+        
+        let listTableViewConstraints = [
+            listTableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
+            listTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+        
+        let noDataLabelConstraints = [
+            noDataLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noDataLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(labelConstraints)
+        NSLayoutConstraint.activate(listTableViewConstraints)
+        NSLayoutConstraint.activate(noDataLabelConstraints)
+    }
+    
     private func makeAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okButton)
         present(alert, animated: true)
     }
-    
-    private func setConstraints() {
-        
-    }
-
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -128,12 +163,38 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier) as! ListTableViewCell
-        
+        let titleString = moodListModel[indexPath.row].title
+        cell.configure(title: titleString)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let checkDiaryVC = CheckDiaryViewController()
+        let moodString = moodListModel[indexPath.row].mood
+        let diaryTextString = moodListModel[indexPath.row].diaryText
+        checkDiaryVC.configure(mood: moodString, text: diaryTextString)
+        navigationController?.pushViewController(checkDiaryVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let titleString = moodListModel[indexPath.row].title
+            DatabaseManager.shared.deleteUserDiary(title: titleString) { [weak self] result in
+                if result {
+                    DispatchQueue.main.async {
+                        self?.listTableView.reloadData()
+                    }
+                } else {
+                    self?.makeAlert(title: "Error", message: "Failed to delete diary. Try again later.")
+                }
+            }
+            
+            moodListModel.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

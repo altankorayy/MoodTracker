@@ -10,13 +10,17 @@ import JGProgressHUD
 
 class DiaryViewController: UIViewController {
     
-    private let diaryShowLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Diary"
-        label.font = .systemFont(ofSize: 30, weight: .heavy)
-        label.textColor = .black
-        return label
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont.boldSystemFont(ofSize: 26)
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: "Add Title", attributes: attributes)
+        textField.textColor = .black
+        textField.font = .systemFont(ofSize: 26, weight: .bold)
+        return textField
     }()
     
     private let diaryTextView: UITextView = {
@@ -54,11 +58,10 @@ class DiaryViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        view.addSubview(diaryShowLabel)
+        view.addSubview(titleTextField)
         view.addSubview(diaryTextView)
         view.addSubview(saveButton)
         setConstraints()
-        
         navigationController?.navigationBar.isHidden = true
         diaryTextView.delegate = self
         
@@ -66,6 +69,8 @@ class DiaryViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         
         saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        
+        titleTextField.addTarget(self, action: #selector(didEditTitle), for: .editingChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(successUpload), name: NSNotification.Name("diaryUploaded"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(failedToUpload), name: NSNotification.Name("diaryUploadError"), object: nil)
@@ -79,12 +84,17 @@ class DiaryViewController: UIViewController {
         viewModel.mood = moodString
     }
     
+    @objc private func didEditTitle() {
+        viewModel.title = titleTextField.text
+    }
+    
     @objc private func didTapGesture() {
         view.endEditing(true)
     }
     
     @objc private func didTapSaveButton() {
         if diaryTextView.text.count <= 10 {
+            spinner.dismiss()
             makeAlert(title: "Error", message: "Text must be more than 10 characters.")
         } else {
             spinner.show(in: view, animated: true)
@@ -116,20 +126,20 @@ class DiaryViewController: UIViewController {
             saveButton.heightAnchor.constraint(equalToConstant: 50)
         ]
         
-        let diaryShowLabelConstrainst = [
-            diaryShowLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            diaryShowLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
+        let titleTextFieldConstrainst = [
+            titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
         ]
         
         let diaryTextViewConstraints = [
-            diaryTextView.topAnchor.constraint(equalTo: diaryShowLabel.bottomAnchor, constant: 20),
+            diaryTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 20),
             diaryTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             diaryTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             diaryTextView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -10)
         ]
         
         NSLayoutConstraint.activate(saveButtonConstraints)
-        NSLayoutConstraint.activate(diaryShowLabelConstrainst)
+        NSLayoutConstraint.activate(titleTextFieldConstrainst)
         NSLayoutConstraint.activate(diaryTextViewConstraints)
     }
 

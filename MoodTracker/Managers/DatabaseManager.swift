@@ -25,8 +25,8 @@ class DatabaseManager {
         }
     }
     
-    func uploadDiaryText(id: String, mood: String, text: String, completion: @escaping(Bool) -> Void) {
-        let diaryData: [String: Any] = ["mood": mood, "text": text, "id": id]
+    func uploadDiaryText(id: String, title: String, mood: String, text: String, completion: @escaping(Bool) -> Void) {
+        let diaryData: [String: Any] = ["title": title, "mood": mood, "text": text, "id": id]
         database.collection("diary").addDocument(data: diaryData) { error in
             guard error == nil else {
                 completion(false)
@@ -44,17 +44,36 @@ class DatabaseManager {
                 completion(.failure(DatabaseError.documentFindError))
                 return
             }
-            
             for document in snapshot!.documents {
                 guard let mood = document.get("mood") as? String,
-                      let diaryText = document.get("text") as? String else {
+                      let diaryText = document.get("text") as? String,
+                      let titleText = document.get("title") as? String else {
                     return
                 }
                 
-                let diaryObject = MoodListModel(mood: mood, diaryText: diaryText)
+                let diaryObject = MoodListModel(mood: mood, diaryText: diaryText, title: titleText)
                 moodListModel.append(diaryObject)
             }
             completion(.success(moodListModel))
+        }
+    }
+    
+    func deleteUserDiary(title: String, completion: @escaping(Bool) -> Void) {
+        database.collection("diary").whereField("title", isEqualTo: title).getDocuments { [weak self] snapshot, error in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            for document in snapshot!.documents {
+                let documentID = document.documentID
+                self?.database.collection("diary").document(documentID).delete(completion: { error in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                })
+            }
         }
     }
     

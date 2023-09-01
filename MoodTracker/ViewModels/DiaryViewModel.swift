@@ -12,10 +12,11 @@ class DiaryViewModel {
     
     var mood: String?
     var text: String?
+    var title: String?
     
     public func uploadDiaryText() {
-        guard let moodString = mood, let textString = text, let userId = Auth.auth().currentUser?.uid else { return }
-        DatabaseManager.shared.uploadDiaryText(id: userId, mood: moodString, text: textString) { completed in
+        guard let titleString = title, let moodString = mood, let textString = text, let userId = Auth.auth().currentUser?.uid else { return }
+        DatabaseManager.shared.uploadDiaryText(id: userId, title: titleString, mood: moodString, text: textString) { completed in
             if completed {
                 NotificationCenter.default.post(name: NSNotification.Name("diaryUploaded"), object: nil)
             } else {
