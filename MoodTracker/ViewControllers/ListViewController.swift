@@ -84,6 +84,7 @@ class ListViewController: UIViewController {
             switch result {
             case .success(let moodListModel):
                 self?.moodListModel = moodListModel
+                self?.checkDiaryList()
                 
                 DispatchQueue.main.async {
                     self?.listTableView.reloadData()
@@ -96,9 +97,7 @@ class ListViewController: UIViewController {
     }
     
     @objc private func refreshTableView() {
-        DispatchQueue.main.async { [weak self] in
-            self?.listTableView.reloadData()
-        }
+        fetchDiaryList()
     }
     
     @objc private func didTapSignOut() {
@@ -113,7 +112,7 @@ class ListViewController: UIViewController {
                     self?.navigationController?.pushViewController(welcomeVC, animated: true)
                 }
             } catch {
-                self?.makeAlert(title: "Error", message: "Failed to sign out. Try again later")
+                self?.makeAlert(title: "Something went wrong", message: "Failed to sign out. Try again later")
             }
         }
         let cancelButton = UIAlertAction(title: "Cancel", style: .destructive) { [weak self] _ in
@@ -122,6 +121,14 @@ class ListViewController: UIViewController {
         alert.addAction(signOutButton)
         alert.addAction(cancelButton)
         present(alert, animated: true)
+    }
+    
+    private func checkDiaryList() {
+        if moodListModel.isEmpty {
+            noDataLabel.isHidden = false
+        } else {
+            noDataLabel.isHidden = true
+        }
     }
     
     private func setConstraints() {
@@ -188,12 +195,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
                         self?.listTableView.reloadData()
                     }
                 } else {
-                    self?.makeAlert(title: "Error", message: "Failed to delete diary. Try again later.")
+                    self?.makeAlert(title: "Something went wrong", message: "Failed to delete diary. Try again later.")
                 }
             }
             
             moodListModel.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            checkDiaryList()
         }
     }
     

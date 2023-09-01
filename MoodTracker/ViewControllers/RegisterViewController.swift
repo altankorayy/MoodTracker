@@ -100,7 +100,7 @@ class RegisterViewController: UIViewController {
     
     @objc private func didTapCompleteButton() {
         guard usernameTextField.text != nil, emailTextField.text != nil, passwordTextField.text != nil else {
-            makeAlert(title: "Error", message: "Please fill username/email or password.")
+            makeAlert(title: "Something went wrong", message: "Please fill username/email or password.")
             return
         }
         spinner.show(in: view, animated: true)
@@ -166,11 +166,11 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController: AuthErrorDelegate, DatabaseErrorDelegate {
     func registerError(error: String) {
         spinner.dismiss()
-        makeAlert(title: "Error", message: error)
+        makeAlert(title: "Something went wrong", message: error)
     }
     
     func uploadUserError(error: String) {
         spinner.dismiss()
-        makeAlert(title: "Error", message: error)
+        makeAlert(title: "Something went wrong", message: error)
     }
 }

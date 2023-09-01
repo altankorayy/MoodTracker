@@ -82,7 +82,7 @@ class LoginViewController: UIViewController {
     
     @objc private func didTapLoginButton() {
         guard emailTextField.text != nil, passwordTextField.text != nil else {
-            makeAlert(title: "Error", message: "Please fill email or password.")
+            makeAlert(title: "Something went wrong", message: "Please fill email or password.")
             return
         }
         spinner.show(in: view, animated: true)

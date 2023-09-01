@@ -95,7 +95,10 @@ class DiaryViewController: UIViewController {
     @objc private func didTapSaveButton() {
         if diaryTextView.text.count <= 10 {
             spinner.dismiss()
-            makeAlert(title: "Error", message: "Text must be more than 10 characters.")
+            makeAlert(title: "Something went wrong", message: "Text must be more than 10 characters.")
+        } else if let titleText = titleTextField.text, titleText.count <= 2 {
+            spinner.dismiss()
+            makeAlert(title: "Something went wrong", message: "Please add title.")
         } else {
             spinner.show(in: view, animated: true)
             viewModel.uploadDiaryText()
@@ -108,7 +111,7 @@ class DiaryViewController: UIViewController {
     }
     
     @objc private func failedToUpload() {
-        makeAlert(title: "Error", message: "Failed to upload your text. Try again later.")
+        makeAlert(title: "Something went wrong", message: "Failed to upload your text. Try again later.")
     }
     
     private func makeAlert(title: String, message: String) {
