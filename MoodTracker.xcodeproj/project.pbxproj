@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E1193FE72A9E0D3800CCB0A5 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1193FE62A9E0D3800CCB0A5 /* ListTableViewCell.swift */; };
+		E165479C2AA1F06100A281BD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E165479B2AA1F06100A281BD /* NetworkMonitor.swift */; };
+		E16547A02AA2016700A281BD /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E165479F2AA2016700A281BD /* NotificationBannerSwift */; };
 		E179681A2AA0AAA8002B88FA /* CheckDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17968192AA0AAA8002B88FA /* CheckDiaryViewController.swift */; };
 		E18206EB2A94C49400723685 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18206EA2A94C49400723685 /* AppDelegate.swift */; };
 		E18206ED2A94C49400723685 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18206EC2A94C49400723685 /* SceneDelegate.swift */; };
@@ -31,13 +33,13 @@
 		E18F68442A964ED1009DEF08 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68432A964ED1009DEF08 /* DatabaseManager.swift */; };
 		E18F68472A9659A7009DEF08 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68462A9659A7009DEF08 /* LoginViewModel.swift */; };
 		E18F68492A9659B1009DEF08 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */; };
-		E18F684B2A9659C2009DEF08 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F684A2A9659C2009DEF08 /* HomeViewModel.swift */; };
 		E1E6850C2A9B7D770014A745 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */; };
 		E1E6850F2A9B947A0014A745 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = E1E6850E2A9B947A0014A745 /* JGProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E1193FE62A9E0D3800CCB0A5 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		E165479B2AA1F06100A281BD /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E17968192AA0AAA8002B88FA /* CheckDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDiaryViewController.swift; sourceTree = "<group>"; };
 		E18206E72A94C49400723685 /* MoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18206EA2A94C49400723685 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,7 +62,6 @@
 		E18F68432A964ED1009DEF08 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E18F68462A9659A7009DEF08 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
-		E18F684A2A9659C2009DEF08 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +73,7 @@
 				E1E6850F2A9B947A0014A745 /* JGProgressHUD in Frameworks */,
 				E18F683B2A962CB2009DEF08 /* FirebaseAnalytics in Frameworks */,
 				E18F683D2A962CB2009DEF08 /* FirebaseAuth in Frameworks */,
+				E16547A02AA2016700A281BD /* NotificationBannerSwift in Frameworks */,
 				E18F683F2A962CB2009DEF08 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E165479D2AA1F9A300A281BD /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E165479B2AA1F06100A281BD /* NetworkMonitor.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		E18206DE2A94C49400723685 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +108,7 @@
 		E18206E92A94C49400723685 /* MoodTracker */ = {
 			isa = PBXGroup;
 			children = (
+				E165479D2AA1F9A300A281BD /* Networking */,
 				E18F68402A963A78009DEF08 /* Managers */,
 				E18206FF2A94C60800723685 /* Delegates */,
 				E18F68452A965986009DEF08 /* ViewModels */,
@@ -168,7 +179,6 @@
 			children = (
 				E18F68462A9659A7009DEF08 /* LoginViewModel.swift */,
 				E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */,
-				E18F684A2A9659C2009DEF08 /* HomeViewModel.swift */,
 				E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */,
 			);
 			path = ViewModels;
@@ -195,6 +205,7 @@
 				E18F683C2A962CB2009DEF08 /* FirebaseAuth */,
 				E18F683E2A962CB2009DEF08 /* FirebaseFirestore */,
 				E1E6850E2A9B947A0014A745 /* JGProgressHUD */,
+				E165479F2AA2016700A281BD /* NotificationBannerSwift */,
 			);
 			productName = MoodTracker;
 			productReference = E18206E72A94C49400723685 /* MoodTracker.app */;
@@ -227,6 +238,7 @@
 			packageReferences = (
 				E18F68392A962CB2009DEF08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E1E6850D2A9B947A0014A745 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				E165479E2AA2016700A281BD /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 			);
 			productRefGroup = E18206E82A94C49400723685 /* Products */;
 			projectDirPath = "";
@@ -255,7 +267,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E18F684B2A9659C2009DEF08 /* HomeViewModel.swift in Sources */,
 				E18207012A94C62200723685 /* LoginViewController.swift in Sources */,
 				E18207032A94C62B00723685 /* RegisterViewController.swift in Sources */,
 				E182070C2A95017000723685 /* CollectionViewCell.swift in Sources */,
@@ -268,6 +279,7 @@
 				E18F68332A96236E009DEF08 /* DiaryViewController.swift in Sources */,
 				E18206EF2A94C49400723685 /* WelcomeViewController.swift in Sources */,
 				E18207062A94F74A00723685 /* TabBarController.swift in Sources */,
+				E165479C2AA1F06100A281BD /* NetworkMonitor.swift in Sources */,
 				E18F68472A9659A7009DEF08 /* LoginViewModel.swift in Sources */,
 				E18F68362A9627A3009DEF08 /* MoodModel.swift in Sources */,
 				E18206EB2A94C49400723685 /* AppDelegate.swift in Sources */,
@@ -484,6 +496,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E165479E2AA2016700A281BD /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		E18F68392A962CB2009DEF08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -503,6 +523,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E165479F2AA2016700A281BD /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E165479E2AA2016700A281BD /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
+		};
 		E18F683A2A962CB2009DEF08 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E18F68392A962CB2009DEF08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

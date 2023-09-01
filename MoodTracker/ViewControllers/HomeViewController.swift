@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import NotificationBannerSwift
 
 class HomeViewController: UIViewController {
     
@@ -21,8 +22,6 @@ class HomeViewController: UIViewController {
         MoodModel(name: "Stressed", image: UIImage(named: "stressed")!)
     ]
     
-    private let viewModel = HomeViewModel()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +47,14 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         collectionView?.frame = view.bounds
+        
+        let banner = StatusBarNotificationBanner(title: "No connection", style: .danger)
+        banner.autoDismiss = false
+        banner.dismissOnTap = true
+        
+        if NetworkMonitor.shared.isConnected == false {
+            banner.show()
+        }
     }
 
 }
