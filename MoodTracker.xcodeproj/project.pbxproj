@@ -33,6 +33,7 @@
 		E18F68442A964ED1009DEF08 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68432A964ED1009DEF08 /* DatabaseManager.swift */; };
 		E18F68472A9659A7009DEF08 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68462A9659A7009DEF08 /* LoginViewModel.swift */; };
 		E18F68492A9659B1009DEF08 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */; };
+		E1CD8EA82AD44EF4001659CE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CD8EA72AD44EF4001659CE /* HomeViewModel.swift */; };
 		E1E6850C2A9B7D770014A745 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */; };
 		E1E6850F2A9B947A0014A745 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = E1E6850E2A9B947A0014A745 /* JGProgressHUD */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		E18F68432A964ED1009DEF08 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E18F68462A9659A7009DEF08 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		E1CD8EA72AD44EF4001659CE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,6 +182,7 @@
 				E18F68462A9659A7009DEF08 /* LoginViewModel.swift */,
 				E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */,
 				E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */,
+				E1CD8EA72AD44EF4001659CE /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				E18F68472A9659A7009DEF08 /* LoginViewModel.swift in Sources */,
 				E18F68362A9627A3009DEF08 /* MoodModel.swift in Sources */,
 				E18206EB2A94C49400723685 /* AppDelegate.swift in Sources */,
+				E1CD8EA82AD44EF4001659CE /* HomeViewModel.swift in Sources */,
 				E18207082A94F78B00723685 /* HomeViewController.swift in Sources */,
 				E182070A2A94F7C700723685 /* ListViewController.swift in Sources */,
 				E182070E2A9502C800723685 /* HeaderCollectionReusableView.swift in Sources */,

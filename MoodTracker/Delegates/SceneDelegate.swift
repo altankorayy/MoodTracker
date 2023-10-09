@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let currentUser = Auth.auth().currentUser
         if currentUser != nil {
-            let tabBar = UINavigationController(rootViewController: TabBarController())
+            let tabBar = TabBarController()
             window?.rootViewController = tabBar
         } else {
             let welcomeVC = UINavigationController(rootViewController: WelcomeViewController())

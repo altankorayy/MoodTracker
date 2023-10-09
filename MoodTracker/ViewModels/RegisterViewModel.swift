@@ -27,8 +27,6 @@ class RegisterViewModel {
     public func registerUser() {
         guard let email = email, let username = username, let password = password else { return }
         
-        UserDefaults.standard.set(username, forKey: "username")
-        
         AuthManager.shared.registerUser(username: username, email: email, password: password) { [weak self] completed, error in
             if completed {
                 DatabaseManager.shared.uploadUserInfo(username: username, email: email) { uploaded in

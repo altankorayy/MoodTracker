@@ -12,6 +12,7 @@ import NotificationBannerSwift
 class HomeViewController: UIViewController {
     
     var collectionView: UICollectionView?
+    private let viewModel = HomeViewModel()
     
     let moodModel: [MoodModel] = [
         MoodModel(name: "Happy", image: UIImage(named: "happy")!),
@@ -39,8 +40,23 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .white
         view.addSubview(collectionView!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.isHidden = true
+        viewModel.getUsername()
+        viewModel.didFetch = { [weak self] in
+            DispatchQueue.main.async {
+                guard let username = self?.viewModel.username else { return }
+                let nameLabel = UILabel()
+                nameLabel.textColor = UIColor.black
+                nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+                nameLabel.text = "Hi, \(username)"
+                let nameBarButton = UIBarButtonItem(customView: nameLabel)
+                self?.navigationItem.leftBarButtonItem = nameBarButton
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -85,9 +101,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as? HeaderCollectionReusableView else {
                 return UICollectionReusableView()
             }
-            if let usernameString = UserDefaults.standard.string(forKey: "username") {
-                header.configureUsername(username: usernameString)
-            }
             return header
         }
         return UICollectionReusableView()
@@ -106,7 +119,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.size.width, height: view.frame.size.width / 3)
+        return CGSize(width: view.frame.size.width, height: view.frame.size.width / 5)
     }
     
 }

@@ -33,6 +33,7 @@ class RegisterViewController: UIViewController {
         ]
         textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "✉️ Email Adress", attributes: attributes)
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -47,6 +48,7 @@ class RegisterViewController: UIViewController {
         textField.isSecureTextEntry = true
         textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "🔐 Password", attributes: attributes)
+        textField.autocapitalizationType = .none
         return textField
     }()
     

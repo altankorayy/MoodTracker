@@ -107,7 +107,7 @@ class DiaryViewController: UIViewController {
     
     @objc private func successUpload() {
         spinner.dismiss()
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func failedToUpload() {

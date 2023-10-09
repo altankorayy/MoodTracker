@@ -37,6 +37,14 @@ class ListTableViewCell: UITableViewCell {
         image.contentMode = .scaleAspectFit
         return image
     }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemGray
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        return label
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,6 +52,7 @@ class ListTableViewCell: UITableViewCell {
         contentView.addSubview(diaryImage)
         contentView.addSubview(cellLabel)
         contentView.addSubview(nextButton)
+        contentView.addSubview(dateLabel)
         
         setConstraints()
     }
@@ -52,8 +61,9 @@ class ListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String) {
+    func configure(title: String, date: String) {
         cellLabel.text = title
+        dateLabel.text = date
     }
     
     private func setConstraints() {
@@ -76,8 +86,14 @@ class ListTableViewCell: UITableViewCell {
             nextButton.widthAnchor.constraint(equalToConstant: 30)
         ]
         
+        let dateLabelConstraint = [
+            dateLabel.topAnchor.constraint(equalTo: nextButton.bottomAnchor, constant: 5),
+            dateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
+        ]
+        
         NSLayoutConstraint.activate(diaryImageViewConstrainst)
         NSLayoutConstraint.activate(cellLabelConstaints)
         NSLayoutConstraint.activate(nextButtonConstraints)
+        NSLayoutConstraint.activate(dateLabelConstraint)
     }
 }

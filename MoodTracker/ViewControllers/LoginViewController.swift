@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
         ]
         textField.textColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "✉️ Email Adress", attributes: attributes)
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -34,6 +35,7 @@ class LoginViewController: UIViewController {
         textField.textColor = .white
         textField.isSecureTextEntry = true
         textField.attributedPlaceholder = NSAttributedString(string: "🔐 Password", attributes: attributes)
+        textField.autocapitalizationType = .none
         return textField
     }()
     

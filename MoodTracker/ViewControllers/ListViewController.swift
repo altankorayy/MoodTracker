@@ -13,6 +13,7 @@ struct MoodListModel {
     var mood: String
     var diaryText: String
     var title: String
+    var date: String
 }
 
 class ListViewController: UIViewController {
@@ -27,10 +28,12 @@ class ListViewController: UIViewController {
     }()
     
     private let signOutButton: UIButton = {
+        let image = UIImage(systemName: "rectangle.portrait.and.arrow.forward", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20))
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign Out", for: .normal)
+        button.setImage(image, for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
+        button.tintColor = UIColor(red: 104/255, green: 52/255, blue: 212/255, alpha: 1)
         return button
     }()
     
@@ -61,6 +64,7 @@ class ListViewController: UIViewController {
         view.addSubview(label)
         view.addSubview(listTableView)
         view.addSubview(noDataLabel)
+        view.addSubview(signOutButton)
         
         setConstraints()
         
@@ -149,9 +153,15 @@ class ListViewController: UIViewController {
             noDataLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ]
         
+        let signOutButtonConstraints = [
+            signOutButton.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+            signOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+        ]
+        
         NSLayoutConstraint.activate(labelConstraints)
         NSLayoutConstraint.activate(listTableViewConstraints)
         NSLayoutConstraint.activate(noDataLabelConstraints)
+        NSLayoutConstraint.activate(signOutButtonConstraints)
     }
     
     private func makeAlert(title: String, message: String) {
@@ -171,7 +181,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier) as! ListTableViewCell
         let titleString = moodListModel[indexPath.row].title
-        cell.configure(title: titleString)
+        let dateString = moodListModel[indexPath.row].date
+        cell.configure(title: titleString, date: dateString)
         return cell
     }
     
