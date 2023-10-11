@@ -10,6 +10,7 @@
 * Firebase Auth & Firestore
 * Custom TableView & CollectionView & NavigationController & TabBar
 * JGProgressUHD
+* Notification Banner
 * Network Monitor 
 * Programmatic Constraints 
 * UIKit with no Storyboard 
