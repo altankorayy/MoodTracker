@@ -8,11 +8,13 @@
 import UIKit
 import FirebaseAuth
 import NotificationBannerSwift
+import JGProgressHUD
 
 class HomeViewController: UIViewController {
     
     var collectionView: UICollectionView?
     private let viewModel = HomeViewModel()
+    private let spinner = JGProgressHUD(style: .light)
     
     let moodModel: [MoodModel] = [
         MoodModel(name: "Happy", image: UIImage(named: "happy")!),
@@ -45,16 +47,19 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        spinner.show(in: view, animated: true)
         viewModel.getUsername()
         viewModel.didFetch = { [weak self] in
+            
             DispatchQueue.main.async {
                 guard let username = self?.viewModel.username else { return }
                 let nameLabel = UILabel()
                 nameLabel.textColor = UIColor.black
                 nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-                nameLabel.text = "Hi, \(username)"
+                nameLabel.text = "Hi, \(username) 👋🏻"
                 let nameBarButton = UIBarButtonItem(customView: nameLabel)
                 self?.navigationItem.leftBarButtonItem = nameBarButton
+                self?.spinner.dismiss(animated: true)
             }
         }
     }

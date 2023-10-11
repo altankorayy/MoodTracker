@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E1193FE72A9E0D3800CCB0A5 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1193FE62A9E0D3800CCB0A5 /* ListTableViewCell.swift */; };
+		E12120DF2AD69E3B009B7EB0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12120DE2AD69E3B009B7EB0 /* ListViewModel.swift */; };
 		E165479C2AA1F06100A281BD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E165479B2AA1F06100A281BD /* NetworkMonitor.swift */; };
 		E16547A02AA2016700A281BD /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E165479F2AA2016700A281BD /* NotificationBannerSwift */; };
 		E179681A2AA0AAA8002B88FA /* CheckDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17968192AA0AAA8002B88FA /* CheckDiaryViewController.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		E1193FE62A9E0D3800CCB0A5 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		E12120DE2AD69E3B009B7EB0 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		E165479B2AA1F06100A281BD /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		E17968192AA0AAA8002B88FA /* CheckDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDiaryViewController.swift; sourceTree = "<group>"; };
 		E18206E72A94C49400723685 /* MoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 				E18F68482A9659B1009DEF08 /* RegisterViewModel.swift */,
 				E1E6850B2A9B7D770014A745 /* DiaryViewModel.swift */,
 				E1CD8EA72AD44EF4001659CE /* HomeViewModel.swift */,
+				E12120DE2AD69E3B009B7EB0 /* ListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				E18F68422A963A82009DEF08 /* AuthManager.swift in Sources */,
 				E1193FE72A9E0D3800CCB0A5 /* ListTableViewCell.swift in Sources */,
 				E18F68332A96236E009DEF08 /* DiaryViewController.swift in Sources */,
+				E12120DF2AD69E3B009B7EB0 /* ListViewModel.swift in Sources */,
 				E18206EF2A94C49400723685 /* WelcomeViewController.swift in Sources */,
 				E18207062A94F74A00723685 /* TabBarController.swift in Sources */,
 				E165479C2AA1F06100A281BD /* NetworkMonitor.swift in Sources */,

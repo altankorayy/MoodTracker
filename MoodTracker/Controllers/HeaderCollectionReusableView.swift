@@ -38,7 +38,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     private func setConstraints() {
         let showLabelConstraints = [
             showLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            showLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            showLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
         ]
         
         NSLayoutConstraint.activate(showLabelConstraints)

@@ -70,8 +70,8 @@ class ListTableViewCell: UITableViewCell {
         let diaryImageViewConstrainst = [
             diaryImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             diaryImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            diaryImage.heightAnchor.constraint(equalToConstant: 40),
-            diaryImage.widthAnchor.constraint(equalToConstant: 40)
+            diaryImage.heightAnchor.constraint(equalToConstant: 30),
+            diaryImage.widthAnchor.constraint(equalToConstant: 30)
         ]
         
         let cellLabelConstaints = [

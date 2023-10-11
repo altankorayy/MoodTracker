@@ -56,6 +56,7 @@ class ListViewController: UIViewController {
     
     var moodListModel = [MoodListModel]()
     private var spinner = JGProgressHUD(style: .light)
+    private let viewModel = ListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -199,15 +200,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let titleString = moodListModel[indexPath.row].title
-            DatabaseManager.shared.deleteUserDiary(title: titleString) { [weak self] result in
-                if result {
-                    DispatchQueue.main.async {
-                        self?.listTableView.reloadData()
-                    }
-                } else {
-                    self?.makeAlert(title: "Something went wrong", message: "Failed to delete diary. Try again later.")
-                }
+            viewModel.deleteUserDiary(model: moodListModel, indexPath: indexPath.row)
+            guard let deleted = viewModel.didDeleteDiary else { return }
+            
+            if deleted {
+                makeAlert(title: "Success", message: "Successfully deleted.")
+            } else {
+                makeAlert(title: "Something went wrong...", message: "Failed to delete diary. Please check your internet connection.")
             }
             
             moodListModel.remove(at: indexPath.row)
