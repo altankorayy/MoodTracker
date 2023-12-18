@@ -45,6 +45,6 @@
 </div>
 
 <div class="row">
-  <img src="https://github.com/altankorayy/MoodTracker/assets/67483357/6fd2f930-e0eb-4055-b532-c331ef5a3051" width="400" height="600" class="col-md-6">
-  <img src="https://github.com/altankorayy/MoodTracker/assets/67483357/682797df-e7cd-4382-990e-027aad0ccf4c" width="400" height="600" class="col-md-6">
+  <img src="https://github.com/altankorayy/MoodTracker/assets/67483357/6fd2f930-e0eb-4055-b532-c331ef5a3051" width="300" height="600" class="col-md-6">
+  <img src="https://github.com/altankorayy/MoodTracker/assets/67483357/682797df-e7cd-4382-990e-027aad0ccf4c" width="300" height="600" class="col-md-6">
 </div>
